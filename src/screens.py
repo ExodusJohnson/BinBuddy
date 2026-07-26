@@ -30,8 +30,11 @@ def show_screen():
         weather = get_weather()
         next_bin = get_next_collection()
 
+
+        # Left side - bins
+
         display.text(
-            "NEXT:",
+            "NEXT BIN:",
             20,
             10,
             2
@@ -58,17 +61,27 @@ def show_screen():
             2
         )
 
+
+        # Right side - weather moved up
+
         display.text(
             weather["temperature"],
-            170,
-            35,
+            160,
+            5,
             3
         )
 
         display.text(
             weather["condition"],
             150,
-            70,
+            40,
+            2
+        )
+
+        display.text(
+            "Rain " + weather["rain"],
+            150,
+            65,
             2
         )
 
@@ -120,14 +133,21 @@ def show_screen():
         display.text(
             weather["temperature"],
             20,
-            60,
+            55,
             3
         )
 
         display.text(
             weather["condition"],
             20,
-            100,
+            90,
+            2
+        )
+
+        display.text(
+            "Rain " + weather["rain"],
+            20,
+            115,
             2
         )
 
