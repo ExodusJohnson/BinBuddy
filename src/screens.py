@@ -1,5 +1,5 @@
 from display import display, clear
-
+from config import NEXT_BIN, NEXT_COLLECTION
 
 screens = [
     "home",
@@ -25,8 +25,9 @@ def show_screen():
         display.text("Ready!", 20, 60, 2)
 
     elif screen == "bins":
-        display.text("Bins", 20, 20, 3)
-        display.text("Next collection", 20, 60, 2)
+   	display.text("Bins", 20, 20, 3)
+    	display.text(NEXT_BIN, 20, 60, 2)
+    	display.text(NEXT_COLLECTION, 20, 90, 2)
 
     elif screen == "weather":
         display.text("Weather", 20, 20, 3)
