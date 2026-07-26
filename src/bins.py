@@ -52,41 +52,6 @@ def get_next_collection():
     }
 
 
-def get_following_collection():
-
-    found_next = False
-
-    now = time.localtime()
-
-    today = (
-        now[0],
-        now[1],
-        now[2]
-    )
-
-    for year, month, day, bins in COLLECTIONS:
-
-        collection_date = (
-            year,
-            month,
-            day
-        )
-
-        if found_next:
-            return {
-                "date": collection_date,
-                "bins": bins
-            }
-
-        if collection_date >= today:
-            found_next = True
-
-
-    return {
-        "date": None,
-        "bins": []
-    }
-
 def format_bins(bins):
 
     if not bins:
@@ -97,13 +62,13 @@ def format_bins(bins):
     for bin_type in bins:
 
         if bin_type == "Black":
-            names.append("BLACK BIN")
+            names.append("BLACK")
 
         elif bin_type == "Green":
-            names.append("GREEN BIN")
+            names.append("GREEN")
 
         elif bin_type == "Blue":
-            names.append("BLUE BIN")
+            names.append("BLUE")
 
         else:
             names.append(bin_type.upper())

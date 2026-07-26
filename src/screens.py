@@ -1,7 +1,8 @@
 from display import display, clear
 from config import COUNCIL
-from bins import get_next_collection, get_following_collection, format_bins
+from bins import get_next_collection, format_bins
 from utils import format_date
+from weather import get_weather
 
 
 screens = [
@@ -23,19 +24,51 @@ def show_screen():
 
     screen = screens[current_screen]
 
+
     if screen == "home":
+
+        weather = get_weather()
+        next_bin = get_next_collection()
 
         display.text(
             "BinBuddy",
             20,
-            20,
+            10,
             3
         )
 
         display.text(
-            "Ready!",
+            "NEXT BIN:",
             20,
-            60,
+            45,
+            2
+        )
+
+        display.text(
+            format_bins(next_bin["bins"]),
+            20,
+            70,
+            2
+        )
+
+        display.text(
+            format_date(next_bin["date"]),
+            20,
+            95,
+            2
+        )
+
+        display.text(
+            weather["temperature"],
+            170,
+            45,
+            3
+        )
+
+        display.text(
+            weather["condition"],
+            150,
+            80,
             2
         )
 
@@ -43,58 +76,51 @@ def show_screen():
     elif screen == "bins":
 
         next_bin = get_next_collection()
-        after_bin = get_following_collection()
 
         display.text(
             "NEXT BIN",
             20,
-            15,
+            20,
             3
         )
 
         display.text(
             format_bins(next_bin["bins"]),
             20,
-            55,
+            60,
             2
         )
 
         display.text(
             format_date(next_bin["date"]),
             20,
-            85,
-            2
-        )
-
-
-        display.text(
-            "AFTER:",
-            170,
-            15,
-            2
-        )
-
-        display.text(
-            format_bins(after_bin["bins"]),
-            170,
-            55,
+            100,
             2
         )
 
 
     elif screen == "weather":
 
+        weather = get_weather()
+
         display.text(
-            "Weather",
+            "WEATHER",
             20,
             20,
             3
         )
 
         display.text(
-            "Coming soon",
+            weather["temperature"],
             20,
             60,
+            3
+        )
+
+        display.text(
+            weather["condition"],
+            20,
+            100,
             2
         )
 
@@ -102,7 +128,7 @@ def show_screen():
     elif screen == "status":
 
         display.text(
-            "Status",
+            "STATUS",
             20,
             20,
             3
