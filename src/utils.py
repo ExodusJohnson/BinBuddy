@@ -1,20 +1,3 @@
-MONTHS = [
-    "",
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-]
-
-
 def format_date(date):
 
     if not date:
@@ -22,4 +5,4 @@ def format_date(date):
 
     year, month, day = date
 
-    return f"{day} {MONTHS[month]}"
+    return f"{day}/{month}"
