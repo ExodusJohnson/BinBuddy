@@ -86,3 +86,26 @@ def get_following_collection():
         "date": None,
         "bins": []
     }
+
+def format_bins(bins):
+
+    if not bins:
+        return "No bins"
+
+    names = []
+
+    for bin_type in bins:
+
+        if bin_type == "Black":
+            names.append("BLACK BIN")
+
+        elif bin_type == "Green":
+            names.append("GREEN BIN")
+
+        elif bin_type == "Blue":
+            names.append("BLUE BIN")
+
+        else:
+            names.append(bin_type.upper())
+
+    return " + ".join(names)

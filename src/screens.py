@@ -1,6 +1,6 @@
 from display import display, clear
 from config import COUNCIL
-from bins import get_next_collection, get_following_collection
+from bins import get_next_collection, get_following_collection, format_bins
 from utils import format_date
 
 
@@ -53,7 +53,7 @@ def show_screen():
         )
 
         display.text(
-            str(next_bin["bins"]),
+            format_bins(next_bin["bins"]),
             20,
             55,
             2
@@ -75,7 +75,7 @@ def show_screen():
         )
 
         display.text(
-            str(after_bin["bins"]),
+            format_bins(after_bin["bins"]),
             170,
             55,
             2
