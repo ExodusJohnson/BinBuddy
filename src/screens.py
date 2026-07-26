@@ -1,5 +1,8 @@
 from display import display, clear
-from config import NEXT_BIN, NEXT_COLLECTION
+from config import COUNCIL
+from bins import get_next_collection, get_following_collection
+from utils import format_date
+
 
 screens = [
     "home",
@@ -21,23 +24,100 @@ def show_screen():
     screen = screens[current_screen]
 
     if screen == "home":
-        display.text("BinBuddy", 20, 20, 3)
-        display.text("Ready!", 20, 60, 2)
+
+        display.text(
+            "BinBuddy",
+            20,
+            20,
+            3
+        )
+
+        display.text(
+            "Ready!",
+            20,
+            60,
+            2
+        )
+
 
     elif screen == "bins":
-   	display.text("Bins", 20, 20, 3)
-    	display.text(NEXT_BIN, 20, 60, 2)
-    	display.text(NEXT_COLLECTION, 20, 90, 2)
+
+        next_bin = get_next_collection()
+        after_bin = get_following_collection()
+
+        display.text(
+            "NEXT BIN",
+            20,
+            15,
+            3
+        )
+
+        display.text(
+            str(next_bin["bins"]),
+            20,
+            55,
+            2
+        )
+
+        display.text(
+            format_date(next_bin["date"]),
+            20,
+            85,
+            2
+        )
+
+
+        display.text(
+            "AFTER:",
+            170,
+            15,
+            2
+        )
+
+        display.text(
+            str(after_bin["bins"]),
+            170,
+            55,
+            2
+        )
+
 
     elif screen == "weather":
-        display.text("Weather", 20, 20, 3)
-        display.text("Coming soon", 20, 60, 2)
+
+        display.text(
+            "Weather",
+            20,
+            20,
+            3
+        )
+
+        display.text(
+            "Coming soon",
+            20,
+            60,
+            2
+        )
+
 
     elif screen == "status":
-        display.text("Status", 20, 20, 3)
-        display.text("WiFi: OFF", 20, 60, 2)
+
+        display.text(
+            "Status",
+            20,
+            20,
+            3
+        )
+
+        display.text(
+            COUNCIL,
+            20,
+            60,
+            2
+        )
+
 
     display.update()
+
 
 
 def next_screen():
@@ -48,6 +128,7 @@ def next_screen():
 
     if current_screen >= len(screens):
         current_screen = 0
+
 
 
 def previous_screen():

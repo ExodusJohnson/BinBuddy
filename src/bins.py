@@ -1,0 +1,88 @@
+import time
+
+
+# Tameside collection schedule
+# Format:
+# (year, month, day, bins)
+
+COLLECTIONS = [
+    (2026, 7, 30, ["Green"]),
+
+    (2026, 8, 6, ["Black"]),
+    (2026, 8, 13, ["Green", "Blue"]),
+    (2026, 8, 20, []),
+    (2026, 8, 27, ["Black", "Green"]),
+
+    (2026, 9, 3, ["Blue"]),
+    (2026, 9, 10, ["Green"]),
+    (2026, 9, 17, ["Black"]),
+    (2026, 9, 24, ["Green", "Blue"]),
+]
+
+
+def get_next_collection():
+
+    now = time.localtime()
+
+    today = (
+        now[0],
+        now[1],
+        now[2]
+    )
+
+    for year, month, day, bins in COLLECTIONS:
+
+        collection_date = (
+            year,
+            month,
+            day
+        )
+
+        if collection_date >= today:
+
+            return {
+                "date": collection_date,
+                "bins": bins
+            }
+
+
+    return {
+        "date": None,
+        "bins": []
+    }
+
+
+def get_following_collection():
+
+    found_next = False
+
+    now = time.localtime()
+
+    today = (
+        now[0],
+        now[1],
+        now[2]
+    )
+
+    for year, month, day, bins in COLLECTIONS:
+
+        collection_date = (
+            year,
+            month,
+            day
+        )
+
+        if found_next:
+            return {
+                "date": collection_date,
+                "bins": bins
+            }
+
+        if collection_date >= today:
+            found_next = True
+
+
+    return {
+        "date": None,
+        "bins": []
+    }
