@@ -1,7 +1,10 @@
+from wifi import connect_wifi
 from screens import show_screen, next_screen, previous_screen
 from buttons import check_buttons
 import time
 
+
+connect_wifi()
 
 show_screen()
 
