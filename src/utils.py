@@ -3,26 +3,55 @@ import time
 
 def format_date(date):
 
-    if not date:
-        return "Unknown"
-
     year, month, day = date
 
-    return f"{day}/{month}"
+    weekdays = [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+    ]
+
+    weekday_number = time.localtime(
+        time.mktime(
+            (year, month, day, 0, 0, 0, 0, 0, 0)
+        )
+    )[6]
+
+    weekday = weekdays[weekday_number]
+
+    return "{} {:02d}/{:02d}".format(
+        weekday,
+        day,
+        month
+    )
 
 
 def days_until(date):
 
-    if not date:
-        return ""
-
     now = time.localtime()
 
-    today = time.mktime(
+    today = (
+        now[0],
+        now[1],
+        now[2]
+    )
+
+    target = (
+        date[0],
+        date[1],
+        date[2]
+    )
+
+    today_seconds = time.mktime(
         (
-            now[0],
-            now[1],
-            now[2],
+            today[0],
+            today[1],
+            today[2],
+            0,
             0,
             0,
             0,
@@ -31,11 +60,12 @@ def days_until(date):
         )
     )
 
-    target = time.mktime(
+    target_seconds = time.mktime(
         (
-            date[0],
-            date[1],
-            date[2],
+            target[0],
+            target[1],
+            target[2],
+            0,
             0,
             0,
             0,
@@ -44,13 +74,16 @@ def days_until(date):
         )
     )
 
-    days = int((target - today) / 86400)
+    days = int(
+        (target_seconds - today_seconds) / 86400
+    )
+
 
     if days == 0:
         return "TODAY"
 
     elif days == 1:
-        return "TOMORROW"
+        return "IN 1 DAY"
 
     else:
-        return f"IN {days} DAYS"
+        return "IN {} DAYS".format(days)

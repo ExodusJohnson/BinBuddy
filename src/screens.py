@@ -14,13 +14,34 @@ def show_screen():
     weather = get_weather()
     next_bin = get_next_collection()
 
-    bin_name = format_bins(next_bin["bins"]).upper()
-    date = format_date(next_bin["date"])
-    days = days_until(next_bin["date"]).upper()
 
-    temperature = weather.get("temperature", "")
-    condition = weather.get("condition", "").upper()
-    rain = weather.get("rain", "")
+    bin_name = format_bins(
+        next_bin["bins"]
+    ).upper()
+
+    date = format_date(
+        next_bin["date"]
+    )
+
+    days = days_until(
+        next_bin["date"]
+    ).upper()
+
+
+    temperature = weather.get(
+        "temperature",
+        ""
+    )
+
+    condition = weather.get(
+        "condition",
+        ""
+    ).upper()
+
+    rain = weather.get(
+        "rain",
+        ""
+    )
 
 
     # ----------------------
@@ -36,8 +57,6 @@ def show_screen():
     )
 
 
-    # Temperature - right aligned
-
     temp_width = display.measure_text(
         temperature,
         3
@@ -51,8 +70,6 @@ def show_screen():
         3
     )
 
-
-    # Divider line
 
     display.line(
         0,
@@ -69,7 +86,7 @@ def show_screen():
     display.text(
         bin_name,
         5,
-        35,
+        40,
         120,
         3
     )
@@ -78,7 +95,7 @@ def show_screen():
     display.text(
         date,
         5,
-        75,
+        80,
         120,
         2
     )
@@ -87,14 +104,14 @@ def show_screen():
     display.text(
         days,
         5,
-        100,
+        105,
         150,
         2
     )
 
 
     # ----------------------
-    # WEATHER TEXT
+    # WEATHER
     # ----------------------
 
     rain_text = "RAIN " + rain
@@ -103,6 +120,7 @@ def show_screen():
         rain_text,
         2
     )
+
 
     display.text(
         rain_text,
@@ -113,13 +131,9 @@ def show_screen():
     )
 
 
-    # ----------------------
-    # WEATHER ICON
-    # ----------------------
-
     draw_weather_icon(
         condition,
-        225,
+        255,
         100
     )
 

@@ -1,26 +1,45 @@
+import time
+
 from wifi import connect_wifi
 from clock import sync_time
 from screens import show_screen
-from buttons import check_buttons
-import time
 
 
-def refresh():
+# ----------------------
+# SETTINGS
+# ----------------------
 
-    connect_wifi()
-    sync_time()
-    show_screen()
+REFRESH_INTERVAL = 3600   # seconds (1 hour)
 
 
-# Initial startup
-refresh()
+# ----------------------
+# STARTUP
+# ----------------------
 
+print("BinBuddy starting")
+
+
+connect_wifi()
+
+
+sync_time()
+
+
+# ----------------------
+# MAIN LOOP
+# ----------------------
 
 while True:
 
-    button = check_buttons()
+    print("Updating display")
 
-    if button in ("A", "B", "C"):
-        refresh()
+    show_screen()
 
-    time.sleep(0.2)
+    print("Display updated")
+
+    print("Waiting 1 hour")
+
+
+    time.sleep(
+        REFRESH_INTERVAL
+    )
