@@ -1,4 +1,4 @@
-from display import display, clear
+from display import display, clear, get_foreground
 from bins import get_next_collection, format_bins
 from utils import format_date, days_until
 from weather import get_weather
@@ -9,9 +9,12 @@ def show_screen():
 
     clear()
 
-    display.set_pen(0)
+    display.set_pen(
+        get_foreground()
+    )
 
     weather = get_weather()
+
     next_bin = get_next_collection()
 
 
@@ -19,9 +22,11 @@ def show_screen():
         next_bin["bins"]
     ).upper()
 
+
     date = format_date(
         next_bin["date"]
     )
+
 
     days = days_until(
         next_bin["date"]
@@ -33,10 +38,12 @@ def show_screen():
         ""
     )
 
+
     condition = weather.get(
         "condition",
         ""
     ).upper()
+
 
     rain = weather.get(
         "rain",
@@ -44,9 +51,7 @@ def show_screen():
     )
 
 
-    # ----------------------
     # HEADER
-    # ----------------------
 
     display.text(
         "NEXT BIN",
@@ -79,9 +84,7 @@ def show_screen():
     )
 
 
-    # ----------------------
-    # BIN INFORMATION
-    # ----------------------
+    # BIN
 
     display.text(
         bin_name,
@@ -110,11 +113,10 @@ def show_screen():
     )
 
 
-    # ----------------------
     # WEATHER
-    # ----------------------
 
     rain_text = "RAIN " + rain
+
 
     rain_width = display.measure_text(
         rain_text,

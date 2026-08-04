@@ -3,43 +3,102 @@ import time
 from wifi import connect_wifi
 from clock import sync_time
 from screens import show_screen
+from buttons import check_buttons
+from display import set_inverted, display, get_foreground
 
 
 # ----------------------
 # SETTINGS
 # ----------------------
 
-REFRESH_INTERVAL = 3600   # seconds (1 hour)
+REFRESH_INTERVAL = 3600
+
+
+inverted_mode = False
+
+
+
+# ----------------------
+# REFRESH FUNCTION
+# ----------------------
+
+def refresh_display():
+
+    print("Refreshing")
+
+    try:
+
+        connect_wifi()
+
+        sync_time()
+
+        show_screen()
+
+        print("Done")
+
+
+    except Exception as e:
+
+        print("Refresh failed:")
+        print(e)
+
 
 
 # ----------------------
 # STARTUP
 # ----------------------
 
-print("BinBuddy starting")
+refresh_display()
 
-
-connect_wifi()
-
-
-sync_time()
 
 
 # ----------------------
-# MAIN LOOP
+# LOOP
 # ----------------------
+
+counter = 0
+
 
 while True:
 
-    print("Updating display")
+    time.sleep(1)
 
-    show_screen()
-
-    print("Display updated")
-
-    print("Waiting 1 hour")
+    counter += 1
 
 
-    time.sleep(
-        REFRESH_INTERVAL
-    )
+    button = check_buttons()
+
+
+    # Button A = refresh
+
+    if button == "A":
+
+        refresh_display()
+
+        counter = 0
+
+
+
+    # Button B = invert colours
+
+    if button == "B":
+
+        inverted_mode = not inverted_mode
+
+        set_inverted(
+            inverted_mode
+        )
+
+        refresh_display()
+
+        counter = 0
+
+
+
+    # Hourly refresh
+
+    if counter >= REFRESH_INTERVAL:
+
+        refresh_display()
+
+        counter = 0
