@@ -25,7 +25,10 @@ def get_weather():
 
 
         temperature = data["current"]["temperature_2m"]
-        weather_code = data["current"]["weather_code"]
+
+        weather_code = int(
+            data["current"]["weather_code"]
+        )
 
         rain_chance = data["hourly"]["precipitation_probability"][0]
 
@@ -52,26 +55,37 @@ def get_weather():
 
 def weather_description(code):
 
-    if code == 0:
-        return "Sunny"
+    descriptions = {
 
-    elif code in [1, 2, 3]:
-        return "Cloudy"
+        0: "Sunny",
 
-    elif code in [45, 48]:
-        return "Fog"
+        1: "Mainly Clear",
+        2: "Part Cloudy",
+        3: "Cloudy",
 
-    elif code in [51, 53, 55]:
-        return "Drizzle"
+        45: "Fog",
+        48: "Fog",
 
-    elif code in [61, 63, 65]:
-        return "Rain"
+        51: "Drizzle",
+        53: "Drizzle",
+        55: "Drizzle",
 
-    elif code in [71, 73, 75]:
-        return "Snow"
+        61: "Rain",
+        63: "Rain",
+        65: "Heavy Rain",
 
-    elif code >= 95:
-        return "Storm"
+        71: "Snow",
+        73: "Snow",
+        75: "Heavy Snow",
 
-    else:
-        return "Unknown"
+        80: "Showers",
+        81: "Showers",
+        82: "Heavy Showers",
+
+        95: "Storm",
+        96: "Storm",
+        99: "Storm"
+    }
+
+
+    return descriptions.get(code, "Unknown")
